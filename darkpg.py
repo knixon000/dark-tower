@@ -3,165 +3,267 @@
 import pygame
 import time
 import random
+import sys
 import keyboard  # using module keyboard
-from pygame import K_SPACE
-pygame.font.init()
+from pygame import K_SPACE, K_w, K_a, K_s, K_d, K_DOWN, K_UP, K_0, K_1
+from pygame.locals import *
 pygame.init()
-#
-# win = pygame.display.set_mode((1000, 620))
-# pygame.display.set_caption("Dark Tower")
-#
-#
-#
-# def crash():
-#     message_display('You Crashed')
-#
-# def game_intro():
-#     titlescreenImg= pygame.image.load("titlescreen.png").convert()
-#     titlescreen = pygame.display.set_mode((1000,620))
-#     intro = True
-#
-#     while intro:
-#         for event in pygame.event.get():
-#             print(event)
-#             if event.type == pygame.QUIT:
-#                 pygame.quit()
-#                 quit()
-#
-#
-#         win.fill((0,0,0))  # Fills the screen with black
-#         titlescreenImg.blit("titlescreen.png", (20,20))
-#         pygame.display.update()
-#         clock.tick(15)
-#
-# x = 50
-# y = 50
-# width = 40
-# height = 60
-# vel = 5
-#
-# maze = pygame.image.load("maze1.png")
-# playerController = pygame.image.load('cloak-test.gif')
-#
-# run = True
-#
-# while run:
-#     pygame.time.delay(100)
-#
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             run = False
-#
-#     keys = pygame.key.get_pressed()
-#
-#     if keys[pygame.K_LEFT]:
-#         x -= vel
-#
-#     if keys[pygame.K_RIGHT]:
-#         x += vel
-#
-#     if keys[pygame.K_UP]:
-#         y -= vel
-#
-#     if keys[pygame.K_DOWN]:
-#         y += vel
+pygame.font.init()
+pygame.mixer.init()
 
 
-# game_intro()
 
-keys = pygame.key.get_pressed()
 
-def titlescreen():
 
+
+
+keys = pygame.key.get_focused()
+keys == True
+pressed = pygame.key.get_pressed()
+
+white= (255,255,255)
+
+gameDisplay = pygame.display.set_mode((1050,600))
+
+
+
+event = pygame.event.wait()
+
+spacebar_was_pressed = pygame.K_SPACE #pygame.key.get_pressed()[pygame.K_SPACE] #pygame.K_SPACE #keyboard.is_pressed("SPACE") #
+
+def main ():
     running = True
 
+    if event.type == pygame.QUIT:
+        running = False # break the loop
+        quit_game()
+    else:
+        titlescreen()
+
+
+def quit_game():
+    running = False # break the loop
+    print("Goodbye!")
+    pygame.quit()
+    sys.exit()
+
+
+#-----------------------------------------------------------------------------
+#titlescreen of game code
+def titlescreen():
+    running = True
+    #play titlescreen music
+    pygame.mixer.music.load('Darkpg Test I.wav')
+    pygame.mixer.music.play(-1)
+
+    keys == True
+    # while running == True:
+    width=1050;
+    height=600
+
+    screen = pygame.display.set_mode((width, height ))
+
+    #display titlescreen image
+    pygame.display.set_caption('Dark Tower')
+    titlescreen = pygame.image.load("titlescreen.png").convert()
+    titlescreen = pygame.transform.scale(titlescreen, (1000, 600))
+    x = 20; # x coordnate of image
+    y = 30; # y coordinate of image
+    screen.blit(titlescreen, ( x,y)) # paint image to screen
+
+
+    #display text
+    red = (128, 0, 0)
+    myfont = pygame.font.SysFont('Garamond', 72)
+    textsurface = myfont.render('Press Spacebar to Continue', True, (red))
+    screen.blit(textsurface,(150,500))
+
+    # #play titlescreen music
+    # pygame.mixer.music.load('Darkpg Test I.wav')
+    # pygame.mixer.music.play(-1)
+
+    pygame.display.flip() # paint screen one time
+
     while running == True:
-        width=1050;
-        height=600
-
-        screen = pygame.display.set_mode((width, height ))
-
-
-
-        #display titlescreen image
-        pygame.display.set_caption('Dark Tower')
-        titlescreen = pygame.image.load("titlescreen.png").convert()
-        titlescreen = pygame.transform.scale(titlescreen, (1000, 600))
-        x = 20; # x coordnate of image
-        y = 30; # y coordinate of image
-        screen.blit(titlescreen, ( x,y)) # paint image to screen
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if spacebar_was_pressed: #and event.type == KEYDOWN:
+                    print("The spacebar was pressed.")
+                    intro()
 
 
-        #play titlescreen music
-        pygame.mixer.music.load('Darkpg Test I.wav')
-        pygame.mixer.music.play(-1)
+            elif event.type == pygame.QUIT:
+                quit_game()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                    quit_game()
+
+#-----------------------------------------------------------------
+#intro is the text box screens
+def intro():
+    running = True
+    print("Intro is running.")
+    event = pygame.event.wait()
+    #play titlescreen music
+    # pygame.mixer.music.load('Darkpg Test I.wav')
+    # pygame.mixer.music.play(-1)
+    while running == True:
+        screen = pygame.display.set_mode((1000, 600))
+
+        display_width = 7
+        display_height = 1.2
+
+        font = pygame.font.SysFont(None, 25)
+        '''
+        virdi_dialog_1 = "Hero, you have awakened Hero. Your name is Theseus."
+                             "A wanderer that stumbled into my tower."
+                             "You need to escape the tower at all cost."
+        '''
+        def dialog_to_screen(msg, color):
+            screen_text = font.render(msg, True, color)
+            # screen.blit(screen_text, [display_width/7, display_height/1.2])
+            screen.blit(screen_text,(260,500))
 
 
-        #display text
-        red = (128, 0, 0)
-        myfont = pygame.font.SysFont('Garamond', 72)
-        textsurface = myfont.render('Press Spacebar to Continue', True, (red))
-        screen.blit(textsurface,(150,500))
+        dialog_to_screen("Hero, you have awakened Hero. Your name is Theseus.", white)
 
+        pygame.display.update()
 
-
-        spacebar_was_pressed = pygame.key.get_pressed()[pygame.K_SPACE]
 
         for event in pygame.event.get():
-            if spacebar_was_pressed:
-                pygame.mixer.music.stop()
-                gameDisplay.fill(0,0,0)
-                print("The spacebar was pressed.")
-            else:
-                pygame.mixer.music.play(-1)
+            if event.type == pygame.KEYDOWN:
+                if spacebar_was_pressed: #and event.type == KEYDOWN:
+                    pygame.mixer.fadeout(1)
+                    pygame.mixer.music.stop()
+                    print("The spacebar was pressed.")
+                    levelOne()
 
 
-
-        pygame.display.flip() # paint screen one time
-
-        running = True
-        while (running): # loop listening for end of game
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-
-        while running == True:  # making a loop
-
-            try:  # used try so that if user pressed other than the given key error will not be shown
-
-                if keyboard.is_pressed('K_SPACE'):  # if spacebar is pressed
-                    print('You Pressed The Spacebar')
-                    gameDisplay.fill(white)
-                    # largeText = pygame.font.Font('freesansbold.ttf',75)
-                    # TextSurf, TextRect = text_objects("Press Spacebar to continue", largeText)
-                    # TextRect.center = ((display_width/2),(display_height/2))
-                    # gameDisplay.blit(TextSurf, TextRect)
-                    # pygame.display.update()
-                    # clock.tick(15)
-                    break  # finishing the loop
-                else:
-                    pass
-                    print("That didn't work.")
-            except:
-                break  # if user pressed a key other than the given key the loop will break
-
-                sceneOne()
-
-
-
-# when spacebar was pressed start code of scene one
-
-def sceneOne():
-    print("Scene One has started!")
+            elif event.type == pygame.QUIT:
+                quit_game()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                    quit_game()
 
 
 
 
 
+
+#-----------------------------------------------------------------------------
+
+#first level code
+def levelOne():
+    running = True
+    print("Level One has started!")
+    screen = pygame.display.set_mode((1000, 600))
+    # screen.blit(1000,600)
+    screen.fill(white)
+    pygame.display.update()
+
+
+
+    running = True # our variable to control the loop.
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False # break the loop
+                quit_game()
+                pygame.quit()
+                sys.exit()
+                quit()
+
+
+
+
+#-----------------------------------------------------------------------------
+#second level code
+def levelTwo():
+    print("Level two has started!")
+    running = True
+
+    event = pygame.event.wait()
+
+
+    running = True # our variable to control the loop.
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False # break the loop
+                quit_game()
+                pygame.quit()
+                sys.exit()
+                quit()
+#-----------------------------------------------------------------------------
+#third level code
+def levelThree():
+    running = True
+    event = pygame.event.wait()
+    print("Level three has started!")
+
+
+
+    running = True # our variable to control the loop.
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False # break the loop
+                quit_game()
+                pygame.quit()
+                sys.exit()
+                quit()
+#-----------------------------------------------------------------------------
+#forth level code
+def levelFour():
+    running = True
+    event = pygame.event.wait()
+    print("Level four has started!")
+
+
+
+    running = True # our variable to control the loop.
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False # break the loop
+                quit_game()
+                pygame.quit()
+                sys.exit()
+                quit()
+
+#-----------------------------------------------------------------------------
+#fifth level code
+def levelFive():
+    running = True
+    event = pygame.event.wait()
+    print("Level five has started!")
+
+
+
+    running = True # our variable to control the loop.
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False # break the loop
+                quit_game()
+                pygame.quit()
+                sys.exit()
+                quit()
+#--------------------------------------------------------------------------
+#call and QUIT
+
+main()
+
+quit_game()
+pygame.quit()
 titlescreen()
 
-pygame.quit()
 
-pygame.display.update()
 
-pygame.quit()
+
+
+
+
+
+
+# pygame.quit()
