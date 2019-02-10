@@ -63,20 +63,28 @@ def titlescreen():
 
     screen = pygame.display.set_mode((width, height ))
 
-    #display titlescreen image
-    pygame.display.set_caption('Dark Tower')
-    titlescreen = pygame.image.load("titlescreen.png").convert()
-    titlescreen = pygame.transform.scale(titlescreen, (1000, 600))
-    x = 20; # x coordnate of image
-    y = 30; # y coordinate of image
-    screen.blit(titlescreen, ( x,y)) # paint image to screen
+    # #display titlescreen image
+    # pygame.display.set_caption('Dark Tower')
+    # titlescreen = pygame.image.load("titlescreen.png").convert()
+    # titlescreen = pygame.transform.scale(titlescreen, (1000, 600))
+    # x = 20; # x coordnate of image
+    # y = 30; # y coordinate of image
+    # screen.blit(titlescreen, ( x,y)) # paint image to screen
+
+
+    #display logo
+    logo = pygame.image.load("logo.png").convert()
+    logo = pygame.transform.scale(logo, (1050, 600))
+    x = 0; # x coordnate of image
+    y = 0; # y coordinate of image
+    screen.blit(logo, ( x,y)) # paint image to screen
 
 
     #display text
     red = (128, 0, 0)
-    myfont = pygame.font.SysFont('Garamond', 72)
-    textsurface = myfont.render('Press Spacebar to Continue', True, (red))
-    screen.blit(textsurface,(150,500))
+    myfont = pygame.font.SysFont('Garamond', 34)
+    textsurface = myfont.render('press spacebar to continue', True, (red))
+    screen.blit(textsurface,(350,500))
 
     # #play titlescreen music
     # pygame.mixer.music.load('Darkpg Test I.wav')
@@ -112,6 +120,14 @@ def intro():
 
         display_width = 7
         display_height = 1.2
+
+        #display titlescreen image
+        pygame.display.set_caption('Dark Tower')
+        titlescreen = pygame.image.load("titlescreen.png").convert()
+        titlescreen = pygame.transform.scale(titlescreen, (1050, 600))
+        x = 0; # x coordnate of image
+        y = 0; # y coordinate of image
+        screen.blit(titlescreen, ( x,y)) # paint image to screen
 
         font = pygame.font.SysFont(None, 25)
         '''
