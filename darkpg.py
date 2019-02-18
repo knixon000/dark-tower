@@ -184,15 +184,11 @@ def intro():
 def levelOne():
     running = True
     print("Level One has started!")
-    # event = pygame.event.wait()
+    event = pygame.event.wait()
     pygame.event.set_allowed([QUIT, KEYDOWN, KEYUP])
     screen = pygame.display.set_mode((1050, 600))
     screen.fill(white)
     screen.set_alpha(None)
-
-
-    display_width = 300
-    display_height = 250
 
     font = pygame.font.SysFont(None, 120)
     def level_to_screen(msg, color):
@@ -202,6 +198,9 @@ def levelOne():
     level_to_screen("Level 1", red)
 
     pygame.display.update()
+
+    display_width = 300
+    display_height = 250
 
 
     class Player:
@@ -225,37 +224,43 @@ def levelOne():
 
     class Maze:
         def __init__(self):
-           self.M = 23
-           self.N = 14
-           self.maze = [ 1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
-                         1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,1,
-                         1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,1,
-                         1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,1,1,1,1,
-                         1,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,1,
-                         1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,1,1,1,0,1,1,1,1,
-                         1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,1,1,1,0,1,1,1,1,
-                         1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,1,1,1,0,1,1,1,1,
-                         1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,1,1,1,0,1,1,1,1,
-                         1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,1,1,1,0,1,1,1,1,
-                         1,0,1,0,1,1,1,1,0,1,1,0,1,0,1,1,1,1,0,1,1,1,1,
-                         1,0,0,0,0,0,0,0,0,1,1,0,1,0,1,1,1,1,0,1,1,1,1,
-                         1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1]
-        pygame.display.update()
+             self.M = 35
+             self.N = 21
+             self.maze = [ 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                           1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,]
+
 
         def draw(self,display_surf,image_surf):
            bx = 0
            by = 0
            for i in range(0,self.M*self.N):
                if self.maze[ bx + (by*self.M) ] == 1:
-                   display_surf.blit(image_surf,( bx * 44 , by * 44))
+                   display_surf.blit(image_surf,( bx * 30 , by * 30))
 
+               bx = bx + 1
+               if bx > self.M-1:
+                   bx = 0
+                   by = by + 1
 
-                   bx = bx + 1
-                   if bx > self.M-1:
-                       bx = 0
-                       by = by + 1
-
-        pygame.display.update()
 
     class App:
 
@@ -275,14 +280,14 @@ def levelOne():
             pygame.init()
             self._display_surf = pygame.display.set_mode((self.windowWidth,self.windowHeight), pygame.HWSURFACE)
 
-            pygame.display.set_caption("Dark Tower")
+            pygame.display.set_caption('Pygame pythonspot.com example')
             self._running = True
             # self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
             # self._image_surf = pygame.transform.scale(self._image_surf, (70,50))
             self._block_surf = pygame.image.load("tiles.png").convert()
-            self._block_surf = pygame.transform.scale(self._block_surf , (50,50))
+            self._block_surf = pygame.transform.scale(self._block_surf , (30,30))
             self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
-            self._image_surf = pygame.transform.scale(self._image_surf, (90,70))
+            self._image_surf = pygame.transform.scale(self._image_surf, (70,50))
 
 
         def on_event(self, event):
@@ -294,8 +299,9 @@ def levelOne():
 
         def on_render(self):
             self._display_surf.fill((0,0,0))
-            self._display_surf.blit(self._image_surf,(self.player.x,self.player.y))
+            # self._display_surf.blit(self._image_surf,(self.player.x,self.player.y))
             self.maze.draw(self._display_surf, self._block_surf)
+            self._display_surf.blit(self._image_surf,(self.player.x,self.player.y))
             pygame.display.flip()
 
         def on_cleanup(self):
@@ -330,40 +336,20 @@ def levelOne():
                 self.on_render()
             self.on_cleanup()
 
-    pygame.display.update()
-
     if __name__ == "__main__" :
         theApp = App()
         theApp.on_execute()
 
+    event = pygame.event.wait()
 
-    running = True # our variable to control the loop.
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False # break the loop
-                quit_game()
                 pygame.quit()
                 sys.exit()
                 quit()
-
-
-        pygame.display.flip()
-
-        # __init__(self)
-        # handle_keys(self)
-
-
-    running = True # our variable to control the loop.
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False # break the loop
-                quit_game()
-                pygame.quit()
-                sys.exit()
-                quit()
-
 
 
 
