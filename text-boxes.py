@@ -19,9 +19,8 @@ clock = pygame.time.Clock()
 
 font = pygame.font.SysFont(None, 25)
 '''
-virdi_dialog_1 = "Hero, you have awakened Hero. Your name is Thesus."
-                     "A wanderer that stumbled into my tower."
-                     "You need to escape the tower at all cost."
+Hey, this is going to be the dialog for the game. You should thank Carlos for this.
+  
 '''
 def dialog_to_screen(msg, color):
     screen_text = font.render(msg, True, color)
