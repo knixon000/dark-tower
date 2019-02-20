@@ -21,6 +21,9 @@ class Player:
 
     def moveDown(self):
         self.y = self.y + self.speed
+        #collision attempt
+    def get_rect(self):
+        return pygame.Rect(self.x, self.y, self.width, self.height)
 
 class Maze:
     def __init__(self):
@@ -47,7 +50,7 @@ class Maze:
                        1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,
                        1,1,1,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,
                        1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,
-                       1,0,1,1,1,0,1,0,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,         
+                       1,0,1,1,1,0,1,0,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,
                        1,0,1,0,0,0,1,0,0,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,
                        1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,
                        1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,
@@ -59,6 +62,11 @@ class Maze:
        for i in range(0,self.M*self.N):
            if self.maze[ bx + (by*self.M) ] == 1:
                display_surf.blit(image_surf,( bx * 30 , by * 30))
+               #collision attempt
+               rect = pygame.Rect(bx * 25, by * 25, 25, 25)
+
+               if rect.colliderect(self.player.get_rect()):
+                   pass  # Collision!
 
            bx = bx + 1
            if bx > self.M-1:
@@ -84,7 +92,7 @@ class App:
         pygame.init()
         self._display_surf = pygame.display.set_mode((self.windowWidth,self.windowHeight), pygame.HWSURFACE)
 
-        pygame.display.set_caption('Pygame pythonspot.com example')
+        pygame.display.set_caption('Dark Tower')
         self._running = True
         # self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
         # self._image_surf = pygame.transform.scale(self._image_surf, (70,50))
