@@ -207,7 +207,7 @@ def levelOne():
         x = 44
         y = 44
         speed = 1
-
+            
         def moveRight(self):
             self.x = self.x + self.speed
 
@@ -219,7 +219,6 @@ def levelOne():
 
         def moveDown(self):
             self.y = self.y + self.speed
-
 
 
     class Maze:
@@ -263,8 +262,8 @@ def levelOne():
 
     class App:
 
-        windowWidth = 1050
-        windowHeight = 650
+        windowWidth = 960
+        windowHeight = 630
         player = 0
 
         def __init__(self):
