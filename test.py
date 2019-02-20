@@ -110,9 +110,12 @@ class App:
         # self._image_surf = pygame.transform.scale(self._image_surf, (70,50))
         self._block_surf = pygame.image.load("tiles.png").convert()
         self._block_surf = pygame.transform.scale(self._block_surf , (30,30))
+
+        self.x = 0
+        self.y = 0
         self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
         self._image_surf = pygame.transform.scale(self._image_surf, (50,30))
-        self.rect = self._image_surf.get_rect()
+        self.rect = pygame.Rect(self.x, self.y, 50,30)
 
 
     def on_event(self, event):
@@ -157,12 +160,26 @@ class App:
             if (keys[K_ESCAPE]):
                 self._running = False
 
-            collision = self.rect.colliderect(self.maze.rect)
-            if collision == True:
-                # self.player.rect = new_rect
-                print("Collision!")
+            # collision = self.rect.colliderect(self.maze.rect)
+            #
+            # if collision == True:
+            #     # self.player.rect = new_rect
+            #     print("Collision!")
 
-            # else:
+            if self.rect.colliderect(self.maze):
+                print('collision')
+            else:
+                print('no collision')
+
+            # if pygame.collide_rect(self.rect, self.maze):
+            #     if px > 0:
+            #          self.rect.right = maze.rect.left
+            #     if px < 0:
+            #         self.rect.left = maze.rect.right
+            #     if py > 0:
+            #         self.rect.bottom = maze.rect.top
+            #     if py < 0:
+            #         self.rect.top = maze.rect.bottom
 
 
         # ## check if the player is still in the maze##
