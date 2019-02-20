@@ -6,8 +6,8 @@ running = True
 
 
 class Player:
-    x = 44
-    y = 44
+    x = 410
+    y = 0
     speed = 1
 
     def moveRight(self):
@@ -111,7 +111,7 @@ class App:
         self._block_surf = pygame.image.load("tiles.png").convert()
         self._block_surf = pygame.transform.scale(self._block_surf , (30,30))
         self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
-        self._image_surf = pygame.transform.scale(self._image_surf, (70,50))
+        self._image_surf = pygame.transform.scale(self._image_surf, (50,30))
         self.rect = self._image_surf.get_rect()
 
 
@@ -140,26 +140,30 @@ class App:
             pygame.event.pump()
 
             # new_rect = self.rect.move(self.player.x, self.player.y)
-            if self.rect.colliderect(self.maze.rect):
+            keys = pygame.key.get_pressed()
+
+            if (keys[K_RIGHT]):
+                self.player.moveRight()
+
+            if (keys[K_LEFT]):
+                self.player.moveLeft()
+
+            if (keys[K_UP]):
+                self.player.moveUp()
+
+            if (keys[K_DOWN]):
+                self.player.moveDown()
+
+            if (keys[K_ESCAPE]):
+                self._running = False
+
+            collision = self.rect.colliderect(self.maze.rect)
+            if collision == True:
                 # self.player.rect = new_rect
                 print("Collision!")
-            else:
-                keys = pygame.key.get_pressed()
 
-                if (keys[K_RIGHT]):
-                    self.player.moveRight()
+            # else:
 
-                if (keys[K_LEFT]):
-                    self.player.moveLeft()
-
-                if (keys[K_UP]):
-                    self.player.moveUp()
-
-                if (keys[K_DOWN]):
-                    self.player.moveDown()
-
-                if (keys[K_ESCAPE]):
-                    self._running = False
 
         # ## check if the player is still in the maze##
         #     if self.player.get_rect().colliderect(self.maze.rect):
