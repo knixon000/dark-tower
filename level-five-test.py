@@ -8,7 +8,7 @@ running = True
 class Player:
     x = 44
     y = 44
-    speed = 1
+    speed = 0.5
 
     def moveRight(self):
         self.x = self.x + self.speed
@@ -25,7 +25,7 @@ class Player:
 class Maze:
     def __init__(self):
          self.M = 28
-         self.N = 28
+         self.N = 24
          self.maze = [ 1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,
                        1,0,1,0,1,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,
                        1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,1,0,1,1,1,0,1,0,1,1,0,1,
@@ -49,18 +49,14 @@ class Maze:
                        1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,
                        1,1,1,1,1,0,1,0,1,1,1,0,0,0,0,1,1,1,1,0,1,1,1,1,1,1,0,1,
                        1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,0,0,1,
-                       1,0,1,1,1,0,1,1,1,1,1,1,0,1,0,1,0,0,0,1,0,1,0,1,1,1,0,1,
-                       1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,1,1,1,1,1,1,1,0,1,0,0,0,1,
-                       1,0,1,0,1,0,1,0,1,1,1,0,1,1,1,1,0,0,0,1,0,1,0,1,0,0,1,1,
-                       1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,
-                       1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,]
+                       1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, ]
 
     def draw(self,display_surf,image_surf):
        bx = 0
        by = 0
        for i in range(0,self.M*self.N):
            if self.maze[ bx + (by*self.M) ] == 1:
-               display_surf.blit(image_surf,( bx * 30 , by * 28))
+               display_surf.blit(image_surf,( bx * 27 , by * 27))
 
            bx = bx + 1
            if bx > self.M-1:
@@ -70,8 +66,8 @@ class Maze:
 
 class App:
 
-    windowWidth = 900
-    windowHeight = 900
+    windowWidth = 760
+    windowHeight = 650
     player = 0
 
     def __init__(self):
@@ -93,7 +89,7 @@ class App:
         self._block_surf = pygame.image.load("fire1.jpg").convert()
         self._block_surf = pygame.transform.scale(self._block_surf , (30,30))
         self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
-        self._image_surf = pygame.transform.scale(self._image_surf, (90,70))
+        self._image_surf = pygame.transform.scale(self._image_surf, (50,30))
 
 
     def on_event(self, event):
