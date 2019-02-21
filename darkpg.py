@@ -11,6 +11,7 @@ from pygame.locals import *
 flags = FULLSCREEN | DOUBLEBUF
 import pygame.surfarray
 import numpy
+import collision
 pygame.init()
 pygame.font.init()
 pygame.mixer.init()
@@ -207,7 +208,7 @@ def levelOne():
         x = 44
         y = 44
         speed = 1
-            
+
         def moveRight(self):
             self.x = self.x + self.speed
 
@@ -246,7 +247,7 @@ def levelOne():
                            1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,
                            1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,
                            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1]
-             
+
         def draw(self,display_surf,image_surf):
            bx = 0
            by = 0
@@ -399,7 +400,7 @@ def __init__(self):
     self.rect = pygame.Rect(32, 32, 16, 16)
 
 def move(self, dx, dy):
-    
+
     # Move each axis separately. Note that this checks for collisions both times.
     if dx != 0:
         self.move_single_axis(dx, 0)
@@ -407,7 +408,7 @@ def move(self, dx, dy):
         self.move_single_axis(0, dy)
 
 def move_single_axis(self, dx, dy):
-    
+
     # Move the rect
     self.rect.x += dx
     self.rect.y += dy

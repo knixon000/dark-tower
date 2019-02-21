@@ -1,11 +1,43 @@
-from pygame.locals import *
-import pygame
 
+
+import pygame
+import os
+import time
+import random
+import sys
+import keyboard  # using module keyboard
+from pygame import K_SPACE, K_w, K_a, K_s, K_d, K_DOWN, K_UP, K_0, K_1
+from pygame.locals import *
+flags = FULLSCREEN | DOUBLEBUF
+import pygame.surfarray
+import numpy
+import darkpg
+pygame.init()
+pygame.font.init()
+pygame.mixer.init()
+
+
+
+
+
+
+keys = pygame.key.get_focused()
+keys == True
+pressed = pygame.key.get_pressed()
+
+white= (255,255,255)
+red = (255,0,0)
+
+gameDisplay = pygame.display.set_mode((1050,600))
+
+
+
+event = pygame.event.wait()
+
+spacebar_was_pressed = pygame.K_SPACE
 
 running = True
 
-screen = pygame.display.set_mode((1050, 600))
-pygame.display.update()
 
 class Player:
     x = 410
@@ -14,7 +46,6 @@ class Player:
 
     def moveRight(self):
         self.x = self.x + self.speed
-
 
     def moveLeft(self):
         self.x = self.x - self.speed
@@ -26,26 +57,12 @@ class Player:
         self.y = self.y + self.speed
         #collision attempt
     def get_rect(self):
-        return pygame.Rect(self.x, self.y, 10, 10)
-
-
-    def __init__(self, image):
-        self.image = pygame.image.load("Cloak-Test.gif").convert()
-        self.rect = self.image.get_rect()
-
-    def move(self, dx, dy):
-        self.rect.x += dx
-        self.rect.y += dy
-
-    def draw(self):
-        self.screen.blit(self.image, (self.rect.x, self.rect.y))
+        return pygame.Rect(self.x, self.y, 70, 50)
 
 class Maze:
 
     def __init__(self):
-         # self.rect = pygame.Rect(0, 1, 16, 16)
-         self.image = pygame.image.load("tiles.png").convert()
-         self.rect = self.image.get_rect()
+         self.rect = pygame.Rect(0, 1, 16, 16)
          self.M = 32
          self.N = 25
          self.maze = [ 1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -98,15 +115,13 @@ class App:
     windowWidth = 1050
     windowHeight = 660
     player = 0
-    speed = 1
-
 
     def __init__(self):
         self._running = True
         self._display_surf = None
         self._image_surf = None
         self._block_surf = None
-        self.player = Player("Cloak-Test.gif")
+        self.player = Player()
         self.maze = Maze()
 
     #     ## check if the player is still in the maze##
@@ -134,7 +149,7 @@ class App:
         self.y = 0
         self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
         self._image_surf = pygame.transform.scale(self._image_surf, (50,30))
-        # self._image_surf= pygame.player.get_rect(topleft=(100, 300))
+        self.rect = pygame.Rect(self.x, self.y, 50,30)
 
 
     def on_event(self, event):
@@ -158,40 +173,23 @@ class App:
         if self.on_init() == False:
             self._running = False
 
-        if self.player.get_rect().colliderect(self.maze.rect):
-            hit = True
-            if hit == True:
-                print("Collision!")
-                
-        else:
-            hit = False
-    ##reverse player's movement if they hit the wall##
-
         while( self._running ):
             pygame.event.pump()
-            speed = 1
+
             # new_rect = self.rect.move(self.player.x, self.player.y)
             keys = pygame.key.get_pressed()
 
             if (keys[K_RIGHT]):
                 self.player.moveRight()
-                if hit == True:
-                    speed = 0
 
             if (keys[K_LEFT]):
                 self.player.moveLeft()
-                if hit == True:
-                    speed = 0
 
             if (keys[K_UP]):
                 self.player.moveUp()
-                if hit == True:
-                    speed = 0
 
             if (keys[K_DOWN]):
                 self.player.moveDown()
-                if hit == True:
-                    speed =  0
 
             if (keys[K_ESCAPE]):
                 self._running = False
@@ -201,13 +199,11 @@ class App:
             # if collision == True:
             #     # self.player.rect = new_rect
             #     print("Collision!")
-            #
-            # else:
-            #     print("No collision....")
-            ## check if the player is still in the maze##
 
-                # self.x = -1
-                # self.y *= -1
+            if self.rect.colliderect(self.maze):
+                print('collision')
+            else:
+                print('no collision')
 
             # if pygame.collide_rect(self.rect, self.maze):
             #     if px > 0:
@@ -218,6 +214,18 @@ class App:
             #         self.rect.bottom = maze.rect.top
             #     if py < 0:
             #         self.rect.top = maze.rect.bottom
+
+
+        # ## check if the player is still in the maze##
+        #     if self.player.get_rect().colliderect(self.maze.rect):
+        #         hit = True
+        #     else:
+        #         hit = False
+        # ##reverse player's movement if they hit the wall##
+        #     if hit == True:
+        #         self.x = -1
+        #         self.y *= -1
+
 
 
             self.on_loop()
