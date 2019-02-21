@@ -6,8 +6,8 @@ running = True
 
 
 class Player:
-    x = 40
-    y = 40
+    x = 44
+    y = 44
     speed = 1
 
     def moveRight(self):
@@ -58,7 +58,7 @@ class Maze:
        by = 0
        for i in range(0,self.M*self.N):
            if self.maze[ bx + (by*self.M) ] == 1:
-               display_surf.blit(image_surf,( bx * 30 , by * 30))
+               display_surf.blit(image_surf,( bx * 26 , by * 26))
 
            bx = bx + 1
            if bx > self.M-1:
@@ -68,8 +68,8 @@ class Maze:
 
 class App:
 
-    windowWidth = 780
-    windowHeight = 730
+    windowWidth = 680
+    windowHeight = 650
     player = 0
 
     def __init__(self):
@@ -91,7 +91,7 @@ class App:
         self._block_surf = pygame.image.load("tiles.png").convert()
         self._block_surf = pygame.transform.scale(self._block_surf , (30,30))
         self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
-        self._image_surf = pygame.transform.scale(self._image_surf, (90,70))
+        self._image_surf = pygame.transform.scale(self._image_surf, (50,30))
 
 
     def on_event(self, event):
