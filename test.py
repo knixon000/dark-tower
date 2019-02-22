@@ -9,7 +9,7 @@ screen = pygame.display.set_mode((1050, 600 ))
 pygame.display.set_caption('Dark Tower')
 black = 0,0,0
 
-hits = 0
+# hits = pygame.sprite.collide_rect(player,maze, False)
 
 
 keys = pygame.key.get_pressed()
@@ -29,10 +29,33 @@ if (keys[K_DOWN]):
 if (keys[K_ESCAPE]):
     self._running = False
 
+# for hit in hits:
+#     if self.change_x >0:
+#         self.rect.right == maze.rect.left
+#     else:
+#         self.rect.left == maze.rect.right
+#
+#
+# self.rect.y += self.change_y
+# for hit in hits:
+#     if self.change_y >0:
+#         self.rect.bottom == maze.rect.top
+#     else:
+#         self.rect.top == maze.rect.bottom
+
+
 class Player():
     x =410
     y = 0
     speed = 1
+
+
+    def __init__(self, image, x, y):
+        self.image = image
+        self.width = image.get_width()
+        self.height = image.get_height()
+        self.rect = pygame.Rect(x, y, 30, 10)
+        self.screen = screen
 
     def moveRight(self):
         self.x = self.x + self.speed
@@ -45,47 +68,33 @@ class Player():
 
     def moveDown(self):
         self.y = self.y + self.speed
-        #collision attempt
-    def get_rect(self):
-        self.rect = self.get_rect()
-
-        pygame.draw.rect(screen,black,rect, 2)
-
-        self.rect.inflate_ip(-10,-10)
-        # return pygame.Rect(self.x, self.y, 0.5, 0.5)
 
 
-    def update(self, maze):
-        self.rect.x += self.change_x
+        self.rect.inflate_ip(-1,-1)
+        self.screen_rect = screen.get_rect()
 
-        hits = pygame.sprite.collide_rect(self,maze, False)
-
-
-        for hit in hits:
-            if self.change_x >0:
-                self.rect.right == maze.rect.left
-            else:
-                self.rect.left == maze.rect.right
-
-
-        self.rect.y += self.change_y
-        for hit in hits:
-            if self.change_y >0:
-                self.rect.bottom == maze.rect.top
-            else:
-                self.rect.top == maze.rect.bottom
+        pygame.draw.rect(self.screen,black,rect, 2)
 
 
 
 
 
-class Maze:
 
-    def __init__(self):
+class Maze(pygame.sprite.Sprite):
 
-         self.M = 32
-         self.N = 25
-         self.maze = [ 1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        image = pygame.image.load("Cloak-Test.gif").convert()
+        x = 0
+        y = 0
+        self.image = pygame.image.load("tiles.png").convert()
+        self.width = image.get_width()
+        self.height = image.get_height()
+        self.rect = pygame.Rect(x, y, 30, 30)
+        self.screen = screen
+        self.M = 32
+        self.N = 25
+        self.maze = [ 1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                        1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
                        1,0,1,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,
                        1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0,0,0,1,0,0,0,0,0,0,1,
@@ -119,23 +128,13 @@ class Maze:
            if self.maze[ bx + (by*self.M) ] == 1:
                display_surf.blit(image_surf,( bx * 30 , by * 30))
 
-           elif self.maze[ bx + (by*self.M) ] == 0:
-                hits == False
-
-               # #collision attempt
-               # rect = pygame.Rect(bx * 25, by * 25, 25, 25)
-               #
-               # if player.rect.collidepoint(event.pos):
-               #     pass  # Collision!
-
            bx = bx + 1
            if bx > self.M-1:
                bx = 0
                by = by + 1
 
-    def get_rect(self):
-        self.rect = self.get_rect()
-        return pygame.Rect(self.x, self.y, 0.5, 0.5)
+    # def get_rect(self):
+    #     return pygame.Rect(self.x, self.y, 0.5, 0.5)
 
 class App:
 
@@ -144,22 +143,20 @@ class App:
     player = 0
 
     def __init__(self):
+        image = pygame.image.load("Cloak-Test.gif").convert()
+        x =410
+        y = 0
+
+
+
         self._running = True
         self._display_surf = None
         self._image_surf = None
         self._block_surf = None
-        self.player = Player()
-        self.maze = Maze()
+        self.player = Player(image,x,y)
+        self.maze = Maze(x,y)
 
-    #     ## check if the player is still in the maze##
-    #     if self.player.get_rect().collide_rect(self.maze.rect):
-    #         hit = True
-    #     else:
-    #         hit = False
-    # ##reverse player's movement if they hit the wall##
-    #     if hit == True:
-    #         self.x = -1
-    #         self.y *= -1
+
 
     def on_init(self):
         pygame.init()
@@ -167,15 +164,19 @@ class App:
 
         pygame.display.set_caption('Dark Tower')
         self._running = True
-        # self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
-        # self._image_surf = pygame.transform.scale(self._image_surf, (70,50))
+
+
         self._block_surf = pygame.image.load("tiles.png").convert()
         self._block_surf = pygame.transform.scale(self._block_surf , (30,30))
-        # self._block_surf = pygame.Surface.get_rect(center=(100,100))
+
+
         self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
         self._image_surf = pygame.transform.scale(self._image_surf, (50,30))
-        # self._image_surf = pygame.Surface.get_rect(center=(100,100))
-        # self.rect = self._image_surf.get_rect()
+
+
+
+
+
 
 
     def on_event(self, event):
@@ -187,9 +188,12 @@ class App:
 
     def on_render(self):
         self._display_surf.fill((0,0,0))
-        # self._display_surf.blit(self._image_surf,(self.player.x,self.player.y))
+
+
         self.maze.draw(self._display_surf, self._block_surf)
         self._display_surf.blit(self._image_surf,(self.player.x,self.player.y))
+
+
         pygame.display.flip()
 
     def on_cleanup(self):
@@ -200,31 +204,61 @@ class App:
             self._running = False
 
         while( self._running ):
-            pygame.event.pump()
-        #
-        #     # new_rect = self.rect.move(self.player.x, self.player.y)
-        #     # if self.rect.collide_rect(self.maze.rect):
-        #     # if self.rect.collide_rect(self.maze.rect):
-        #         # self.player.rect = new_rect
-        #     #     print("Collision!")
-        #     # else:
-        #     keys = pygame.key.get_pressed()
-        #
-        #     if (keys[K_RIGHT]):
-        #         self.player.moveRight()
-        #
-        #     if (keys[K_LEFT]):
-        #         self.player.moveLeft()
-        #
-        #     if (keys[K_UP]):
-        #         self.player.moveUp()
-        #
-        #     if (keys[K_DOWN]):
-        #         self.player.moveDown()
-        #
-        #     if (keys[K_ESCAPE]):
-        #         self._running = False
-        #
+            # hits = pygame.sprite.collide_rect(self.player,self.maze)
+
+            # hits = self.player.get_rect().collidepoint(event.pos)
+
+            # hits = pygame.sprite.collide_rect(self._image_surf, self._block_surf)
+
+
+            sprite_group = pygame.sprite.Group()
+            sprite_group.add(self.player)
+            sprite_group.add(self.maze)
+
+            hits = pygame.sprite.spritecollide(self.player, self.maze, True)
+
+            while hits == False:
+                pygame.event.pump()
+
+                keys = pygame.key.get_pressed()
+
+                if (keys[K_RIGHT]):
+                    self.player.moveRight()
+
+                if (keys[K_LEFT]):
+                    self.player.moveLeft()
+
+                if (keys[K_UP]):
+                    self.player.moveUp()
+
+                if (keys[K_DOWN]):
+                    self.player.moveDown()
+
+                if (keys[K_ESCAPE]):
+                    self._running = False
+
+            while hits == True:
+                def update(self, maze):
+                    pygame.event.pump()
+
+                    self.rect.x += self.change_x
+
+                    # hits = pygame.sprite.collide_rect(player,maze, False)
+
+
+                    for hit in hits:
+                        if self.change_x >0:
+                            self.rect.right == maze.rect.left
+                        else:
+                            self.rect.left == maze.rect.right
+
+
+                    self.rect.y += self.change_y
+                    for hit in hits:
+                        if self.change_y >0:
+                            self.rect.bottom == maze.rect.top
+                        else:
+                            self.rect.top == maze.rect.bottom
 
 
 
