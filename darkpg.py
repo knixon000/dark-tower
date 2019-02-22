@@ -206,7 +206,7 @@ def levelOne():
     class Player:
         x = 44
         y = 44
-        speed = 1
+        speed = 0.5
             
         def moveRight(self):
             self.x = self.x + self.speed
@@ -285,7 +285,7 @@ def levelOne():
             self._block_surf = pygame.image.load("tiles.png").convert()
             self._block_surf = pygame.transform.scale(self._block_surf , (30,30))
             self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
-            self._image_surf = pygame.transform.scale(self._image_surf, (70,50))
+            self._image_surf = pygame.transform.scale(self._image_surf, (65,45))
 
 
         def on_event(self, event):
@@ -296,7 +296,7 @@ def levelOne():
             pass
 
         def on_render(self):
-            self._display_surf.fill((0,0,0))
+            self._display_surf.fill((30,30,30))
             # self._display_surf.blit(self._image_surf,(self.player.x,self.player.y))
             self.maze.draw(self._display_surf, self._block_surf)
             self._display_surf.blit(self._image_surf,(self.player.x,self.player.y))

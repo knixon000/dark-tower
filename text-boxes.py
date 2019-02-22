@@ -49,8 +49,8 @@ dialog_to_screen3("???: Your recollection of memories are jumbled as well.", whi
 
 dialog_to_screen2("???: Get moving hero, your life depends on it.", white)
 
-##level 2
 
+##level 2
 dialog_to_screen1("???: Oh no!!!", white)
 dialog_to_screen2("Thesus: What is it? Who's blood is that??", white)
 dialog_to_screen3("???: The blood of a hero who killed the monster.", white)
@@ -62,7 +62,6 @@ dialog_to_screen3("???: A beast that's part man and part bull known as the Minot
 dialog_to_screen1("Thesus: I see...", white)
 dialog_to_screen2("???: Ignore it for now. You must escape the tower.", white)
 
-##Level 3
 
 dialog_to_screen1("Thesus: May I ask who you are?", white)
 dialog_to_screen2("???: My name is Viridi also known as the Goddess of Death.", white)
@@ -70,6 +69,7 @@ dialog_to_screen3("Thesus: Goddess of Death I see...", white)
 
 dialog_to_screen1("Viridi: It is my responsibility to ensure you leave this maze.", white)
 dialog_to_screen2("Thesus: Thank You!!! Now I'll keep pushing on.", white)
+
 
 ##Level 4
 dialog_to_screen1("Thesus: Why do I feel so much pain in my chest?", white)
