@@ -11,7 +11,6 @@ from pygame.locals import *
 flags = FULLSCREEN | DOUBLEBUF
 import pygame.surfarray
 import numpy
-import collision
 pygame.init()
 pygame.font.init()
 pygame.mixer.init()
@@ -205,15 +204,10 @@ def levelOne():
 
 
     class Player:
-        x = 44
-        y = 44
-<<<<<<< HEAD
-        speed = 1
-
-=======
+        x = 375
+        y = 0
         speed = 0.5
-            
->>>>>>> 5aa9f07552802139a4466125bd4a12d31c4dbf96
+
         def moveRight(self):
             self.x = self.x + self.speed
 
@@ -284,14 +278,14 @@ def levelOne():
             pygame.init()
             self._display_surf = pygame.display.set_mode((self.windowWidth,self.windowHeight), pygame.HWSURFACE)
 
-            pygame.display.set_caption('Pygame pythonspot.com example')
+            pygame.display.set_caption('Dark Tower')
             self._running = True
             # self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
             # self._image_surf = pygame.transform.scale(self._image_surf, (70,50))
             self._block_surf = pygame.image.load("tiles.png").convert()
             self._block_surf = pygame.transform.scale(self._block_surf , (30,30))
             self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
-            self._image_surf = pygame.transform.scale(self._image_surf, (65,45))
+            self._image_surf = pygame.transform.scale(self._image_surf, (50,35))
 
 
         def on_event(self, event):
