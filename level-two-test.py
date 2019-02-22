@@ -8,7 +8,7 @@ running = True
 class Player:
     x = 44
     y = 44
-    speed = 1
+    speed = 0.5
 
     def moveRight(self):
         self.x = self.x + self.speed
@@ -67,8 +67,8 @@ class Maze:
 
 class App:
 
-    windowWidth = 1050
-    windowHeight = 1000
+    windowWidth = 960
+    windowHeight = 670
     player = 0
 
     def __init__(self):
@@ -87,10 +87,10 @@ class App:
         self._running = True
         # self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
         # self._image_surf = pygame.transform.scale(self._image_surf, (70,50))
-        self._block_surf = pygame.image.load("tiles.png").convert()
+        self._block_surf = pygame.image.load("dirt.png").convert()
         self._block_surf = pygame.transform.scale(self._block_surf , (30,30))
         self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
-        self._image_surf = pygame.transform.scale(self._image_surf, (90,70))
+        self._image_surf = pygame.transform.scale(self._image_surf, (60,40))
 
 
     def on_event(self, event):
@@ -101,7 +101,7 @@ class App:
         pass
 
     def on_render(self):
-        self._display_surf.fill((0,0,0))
+        self._display_surf.fill((94,38,18))
         # self._display_surf.blit(self._image_surf,(self.player.x,self.player.y))
         self.maze.draw(self._display_surf, self._block_surf)
         self._display_surf.blit(self._image_surf,(self.player.x,self.player.y))
