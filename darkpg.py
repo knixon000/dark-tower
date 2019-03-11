@@ -204,10 +204,10 @@ def levelOne():
 
 
     class Player:
-        x = 44
-        y = 44
+        x = 375
+        y = 0
         speed = 0.5
-            
+
         def moveRight(self):
             self.x = self.x + self.speed
 
@@ -246,7 +246,7 @@ def levelOne():
                            1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,
                            1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,
                            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1]
-             
+
         def draw(self,display_surf,image_surf):
            bx = 0
            by = 0
@@ -278,14 +278,14 @@ def levelOne():
             pygame.init()
             self._display_surf = pygame.display.set_mode((self.windowWidth,self.windowHeight), pygame.HWSURFACE)
 
-            pygame.display.set_caption('Pygame pythonspot.com example')
+            pygame.display.set_caption('Dark Tower')
             self._running = True
             # self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
             # self._image_surf = pygame.transform.scale(self._image_surf, (70,50))
             self._block_surf = pygame.image.load("tiles.png").convert()
             self._block_surf = pygame.transform.scale(self._block_surf , (30,30))
             self._image_surf = pygame.image.load("Cloak-Test.gif").convert()
-            self._image_surf = pygame.transform.scale(self._image_surf, (65,45))
+            self._image_surf = pygame.transform.scale(self._image_surf, (50,35))
 
 
         def on_event(self, event):
@@ -399,7 +399,7 @@ def __init__(self):
     self.rect = pygame.Rect(32, 32, 16, 16)
 
 def move(self, dx, dy):
-    
+
     # Move each axis separately. Note that this checks for collisions both times.
     if dx != 0:
         self.move_single_axis(dx, 0)
@@ -407,7 +407,7 @@ def move(self, dx, dy):
         self.move_single_axis(0, dy)
 
 def move_single_axis(self, dx, dy):
-    
+
     # Move the rect
     self.rect.x += dx
     self.rect.y += dy
